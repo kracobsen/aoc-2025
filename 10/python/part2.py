@@ -30,7 +30,6 @@ with open('input.txt', 'r') as file:
                 else:
                     row.append(0)
             constraint_matrix.append(row)
-        print (constraint_matrix) 
         # Solve the linear programming problem
         # Minimize: sum of button presses (objective_coefficients · x)
         # Subject to: constraint_matrix · x = joltage_values
