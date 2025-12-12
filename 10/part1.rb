@@ -19,35 +19,11 @@ class Machine
     joltage[1..-2].split(",").map(&:to_i)
   end
 
-  def find_smallest_amount_of_button_presses_to_get_joltage(depth = 200)
-    current = joltage.max
-    while current <= depth
-      puts "Trying depth #{current}"
-      @buttons.repeated_combination(current).to_a.each do |button_combo|
-        if try_combination_to_joltage(button_combo)
-          return current
-        end
-      end
-      current += 1
-    end
-    nil
-  end
-
-  def try_combination_to_joltage(button_combo)
-    current_joltage = @joltage.map { 0 }
-    button_combo.each do |buttons|
-      buttons.each do |button|
-        current_joltage[button] = current_joltage[button] + 1
-      end
-    end
-    current_joltage == @joltage
-  end
-
   def find_smallest_amount_of_button_presses_to_initialize(depth)
     current = 1
     while current <= depth
       @buttons.combination(current).to_a.each do |button_combo|
-        if try_combination(button_combo)
+        if try_combination_to_initialize(button_combo)
           return current
         end
       end
@@ -82,7 +58,7 @@ def start(filename)
   machines.each_with_index do |m, i|
     puts "Check Machine #{i}"
 
-    sum += m.find_smallest_amount_of_button_presses_to_get_joltage
+    sum += m.find_smallest_amount_of_button_presses_to_initialize(20)
   end
   puts sum
 end
